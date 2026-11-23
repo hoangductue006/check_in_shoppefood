@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FOODRUN – Weekly Tracker</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#ff7a32">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<style>
+:root{--bg:#0b1020;--panel:#151c31;--panel2:#1c2540;--text:#eef2ff;--muted:#9aa6c4;--accent:#ff7a32;--accent2:#ffb45c;--line:#293453;--green:#4dd6a0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#253254 0,transparent 40%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh;padding:24px}
+.wrap{max-width:1120px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px}.brand{font-weight:800;letter-spacing:.3px}.brand span{color:var(--accent)}.tag{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:8px 12px;border-radius:999px}
+.hero{background:linear-gradient(130deg,#202c4b,#172039 68%,#352742);border:1px solid #34405f;border-radius:24px;padding:26px;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;box-shadow:0 20px 55px #0002}.eyebrow{color:var(--accent2);font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:1.4px}.hero h1{font-size:clamp(28px,4vw,42px);line-height:1.12;margin:10px 0}.hero p{color:var(--muted);margin:0;max-width:540px;line-height:1.6}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.stat{background:#11192c99;border:1px solid #35405d;border-radius:15px;padding:13px}.stat strong{display:block;font-size:23px}.stat small{color:var(--muted);font-size:11px}.overall{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.ring{width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--accent) var(--progress),#313b58 0);display:grid;place-items:center;position:relative}.ring:before{content:"";position:absolute;inset:12px;background:#19233b;border-radius:50%}.ring span{position:relative;font-size:28px;font-weight:800}.overall .caption{color:var(--muted);margin-top:10px;font-size:13px}
+.weekbar{display:flex;align-items:center;justify-content:space-between;margin:26px 0 14px;gap:12px}.weekbar h2{margin:0;font-size:20px}.weeknav{display:flex;gap:8px;align-items:center}.weeklabel{font-size:13px;color:var(--muted);min-width:150px;text-align:center}.btn{border:1px solid var(--line);background:#19233b;color:var(--text);border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:600}.btn:hover{background:#243150}.btn.reset{color:#ffb8a2;border-color:#633b45;background:#2b1e2b}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}.day{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 12px;min-width:0;transition:.18s}.day.done{border-color:#3d987c;background:linear-gradient(180deg,#172d35,#151c31)}.dayhead{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:12px}.dayname{font-weight:800;font-size:14px}.date{font-size:11px;color:var(--muted)}.count{font-size:12px;color:var(--accent2);font-weight:700;margin-bottom:10px}.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.slot{aspect-ratio:1;display:grid;place-items:center;border:1px solid #34405d;background:#10182a;border-radius:9px;color:#8290b2;font-size:12px;cursor:pointer;user-select:none;transition:.15s}.slot:hover{border-color:var(--accent);color:white}.slot.checked{background:var(--accent);border-color:var(--accent);color:#23150c;font-weight:800;box-shadow:0 4px 10px #ff7a3224}.dayprogress{height:5px;background:#303b58;border-radius:99px;overflow:hidden;margin-top:12px}.dayprogress i{display:block;height:100%;width:0;background:var(--green);transition:width .2s}.hint{text-align:center;color:var(--muted);font-size:12px;margin:18px 0 6px}.footer{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;padding:18px 2px}.footer b{color:var(--text)}
+@media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}.hero{grid-template-columns:1fr}.overall{flex-direction:row;gap:16px}.ring{width:120px;height:120px;flex-shrink:0}}
+@media(max-width:560px){
+ body{padding:12px 12px 24px}.wrap{width:100%}.top{margin-bottom:14px}.brand{font-size:14px}.tag{display:none}
+ .hero{padding:16px;border-radius:17px;gap:16px;grid-template-columns:1fr}.hero h1{font-size:29px;margin:8px 0}.hero p{font-size:13px;line-height:1.5}.stats{gap:7px;margin-top:16px}.stat{padding:9px 8px;border-radius:12px}.stat strong{font-size:18px}.stat small{font-size:10px;line-height:1.25}.overall{flex-direction:row;gap:12px}.ring{width:94px;height:94px}.ring:before{inset:9px}.ring span{font-size:23px}.overall .caption{text-align:left;margin-top:0;font-size:12px}
+ .weekbar{align-items:stretch;flex-direction:column;gap:10px;margin:20px 0 12px}.weekbar h2{font-size:18px}.weeknav{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}.weeklabel{grid-column:1/-1;grid-row:1;text-align:center;min-width:0;font-weight:700;color:var(--text);padding:5px}.weeknav .btn{min-height:44px;padding:10px 8px;font-size:13px}.weeknav #reset{grid-column:1/-1}
+ .grid{grid-template-columns:1fr;gap:10px}.day{padding:14px;border-radius:16px}.dayhead{margin-bottom:10px}.dayname{font-size:15px}.date{font-size:12px}.count{font-size:13px;margin-bottom:10px}.slots{grid-template-columns:repeat(4,1fr);gap:8px}.slot{aspect-ratio:unset;min-height:48px;border-radius:11px;font-size:14px;touch-action:manipulation}.slot:active{transform:scale(.97)}.dayprogress{height:6px;margin-top:12px}
+ .hint{font-size:11px;line-height:1.5;margin:14px 0}.footer{gap:8px;flex-direction:column;text-align:center;padding:14px 2px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="brand">FOOD<span>RUN</span> · WEEKLY</div><div class="tag">Kế hoạch tuần · 84 đơn</div></header>
+<section class="hero">
+ <div><div class="eyebrow">Weekly goal · ShopeeFood</div><h1>12 đơn mỗi ngày.<br>Đều tay cả tuần.</h1><p>Tick từng đơn hoàn thành. Theo dõi tiến độ ngày và tổng tuần — dữ liệu tự lưu trên trình duyệt của bạn.</p>
+ <div class="stats"><div class="stat"><strong id="total">0/84</strong><small>Đơn trong tuần</small></div><div class="stat"><strong id="daysdone">0/7</strong><small>Ngày đủ 12 đơn</small></div><div class="stat"><strong id="todaycount">0/12</strong><small>Ngày đang xem</small></div></div></div>
+ <div class="overall"><div class="ring" id="ring"><span id="percent">0%</span></div><div class="caption">Tiến độ hoàn thành tuần</div></div>
+</section>
+<div class="weekbar"><h2>Checklist 7 ngày</h2><div class="weeknav"><button class="btn" id="prev">← Tuần trước</button><span class="weeklabel" id="weeklabel"></span><button class="btn" id="next">Tuần sau →</button><button class="btn reset" id="reset">Reset tuần</button></div></div>
+<div class="grid" id="days"></div><p class="hint">Chạm vào ô số đơn để đánh dấu đã hoàn thành · mỗi ngày 12 đơn</p>
+<div class="footer"><span>🎯 Mục tiêu: <b>84 đơn / tuần</b></span><span>Tiến độ được lưu tự động trên thiết bị</span></div>
+</div>
+<script>
+const dayNames=['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ nhật'];
+let weekOffset=0, selectedDay=0, data={};
+function mondayOf(date){const d=new Date(date);const day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);d.setHours(0,0,0,0);return d}
+function currentMonday(){const d=mondayOf(new Date());d.setDate(d.getDate()+weekOffset*7);return d}
+function keyOfWeek(d){return d.toISOString().slice(0,10)}
+function load(){const key=keyOfWeek(currentMonday());data=JSON.parse(localStorage.getItem('foodrun_'+key)||'{}')}
+function save(){localStorage.setItem('foodrun_'+keyOfWeek(currentMonday()),JSON.stringify(data))}
+function dateText(d){return d.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit'})}
+function render(){load();const monday=currentMonday();const sunday=new Date(monday);sunday.setDate(sunday.getDate()+6);document.getElementById('weeklabel').textContent=`${dateText(monday)} – ${dateText(sunday)}`;
+ const days=document.getElementById('days');days.innerHTML='';let total=0,complete=0;
+ dayNames.forEach((name,i)=>{const date=new Date(monday);date.setDate(date.getDate()+i);const checks=data[i]||[];const count=checks.filter(Boolean).length;total+=count;if(count===12)complete++;
+ const card=document.createElement('article');card.className='day'+(count===12?' done':'');card.innerHTML=`<div class="dayhead"><span class="dayname">${name}</span><span class="date">${dateText(date)}</span></div><div class="count">${count} / 12 đơn</div><div class="slots">${Array.from({length:12},(_,n)=>`<button class="slot ${checks[n]?'checked':''}" aria-label="Đơn ${n+1}" title="Đơn ${n+1}">${n+1}</button>`).join('')}</div><div class="dayprogress"><i style="width:${count/12*100}%"></i></div>`;
+ card.querySelectorAll('.slot').forEach((btn,n)=>btn.addEventListener('click',()=>{data[i]=data[i]||Array(12).fill(false);data[i][n]=!data[i][n];save();render()}));days.appendChild(card);});
+ document.getElementById('total').textContent=`${total}/84`;document.getElementById('daysdone').textContent=`${complete}/7`;document.getElementById('todaycount').textContent=`${(data[selectedDay]||[]).filter(Boolean).length}/12`;const pct=Math.round(total/84*100);document.getElementById('percent').textContent=pct+'%';document.getElementById('ring').style.setProperty('--progress',pct+'%');
+}
+document.getElementById('prev').onclick=()=>{weekOffset--;render()};document.getElementById('next').onclick=()=>{weekOffset++;render()};document.getElementById('reset').onclick=()=>{if(confirm('Xóa tiến độ của tuần đang xem?')){data={};save();render()}};render();
+</script>
+<script>if('serviceWorker' in navigator && location.protocol !== 'file:'){navigator.serviceWorker.register('./sw.js').catch(console.warn);}</script>
+</body>
+</html>
